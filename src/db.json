@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "title": "React is pretty cool",
+        "author": "Paulzotoff",
+        "feed": "Lorem ipsum dolor sit amet blablabal"
+    },
+    {
+        "id": 2,
+        "title": "Corona sucks",
+        "author": "Paulzotoff",
+        "feed": "Lorem ipsum dolor sit amet blablabal"
+    },
+    {
+        "id": 3,
+        "title": "My fahter is dead :(",
+        "author": "Paulzotoff",
+        "feed": "Lorem ipsum dolor sit amet blablabal"
+    },
+    {
+        "id": 4,
+        "title": "I like sex",
+        "author": "Paulzotoff",
+        "feed": "Lorem ipsum dolor sit amet blablabal"
+    }
+]
