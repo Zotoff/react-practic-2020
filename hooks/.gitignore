@@ -2,8 +2,6 @@
 
 # dependencies
 /node_modules
-/newslist/node_modules
-/hooks/node_modules
 /.pnp
 .pnp.js
 
