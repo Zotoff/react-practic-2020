@@ -6,6 +6,7 @@
 /hooks/node_modules
 /routes/node_modules
 /musicdb/node_modules
+/anim/node_modules
 /.pnp
 .pnp.js
 
