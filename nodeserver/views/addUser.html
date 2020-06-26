@@ -1,0 +1,15 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<h1>Add user</h1>
+
+<script>
+    $.ajax({
+        type: 'POST',
+        url: '/api/adduser/',
+        data: JSON.stringify({
+            firstname: 'steve',
+            lastname: 'json'
+        }),
+        contentType: 'application/json'
+    })
+</script>
