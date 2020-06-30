@@ -12,6 +12,7 @@
 /nodeserver/node_modules
 /nodereact/node_modules
 /nodereact/client/node_modules
+/auth/node_modules
 /.pnp
 .pnp.js
 
