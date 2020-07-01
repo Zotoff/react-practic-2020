@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const cookieParser = require('cookie-parser');
 
+const {authenticate} = require('../middlewares/authentication');
+
 const app = express();
 
 mongoose.connect('mongodb://localhost:27017/AuthApp', {
@@ -50,14 +52,30 @@ app.post('/api/user/login', (req, res)=>{
     })
 });
 
-app.post('/api/books', (req, res)=>{
-    let token = req.cookies.auth;
-    User.findByToken(token, (err, user)=>{
-        if(err) throw err;
-        if(!user) return res.status(400).send('User is not in db');
-        res.status(200).send(user);
+
+
+/*Without middleware*/
+// app.post('/api/books', (req, res)=>{
+//     let token = req.cookies.auth;
+//     User.findByToken(token, (err, user)=>{
+//         if(err) throw err;
+//         if(!user) return res.status(400).send('User is not in db');
+//         res.status(200).send(user);
+//     })
+//     res.status(200).send('Works!');
+// });
+
+/*With middleware*/
+app.post('/api/books', authenticate, (req, res)=>{
+    res.send(req.user);
+});
+
+/*Logout*/
+app.get('/api/user/logout', authenticate, (req, res)=>{
+    req.user.deleteToken(req, token, (err, user)=>{
+        if(err) return res.status(400).send(err);
+        res.status(200).send('Logout ok');
     })
-    res.status(200).send('Works!');
 })
 
 const port = process.env.PORT || 3001;
