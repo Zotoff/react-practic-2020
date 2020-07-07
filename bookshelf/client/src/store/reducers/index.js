@@ -3,7 +3,8 @@ import books from './books_reducer';
 import user from './users_reducer';
 
 const rootReducer = combineReducers({
-
+    books,
+    user
 });
 
 export default rootReducer;

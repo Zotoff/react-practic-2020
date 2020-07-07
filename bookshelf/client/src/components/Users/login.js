@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
+import {connect} from 'react-redux';
+import {loginUser} from '../../store/actions/user_actions';
 
 const LoginSchema = Yup.object().shape({
     password: Yup.string()
@@ -17,6 +19,23 @@ class Login extends Component {
         validation: false
     }
 
+    static getDerivedStateFromProps(props,state){
+        const auth = props.user.auth
+        if(auth){
+            return {
+                success: auth ? true : false
+            }
+        }
+        return null;
+    }
+
+    // Redirect to admin page after login
+    componentDidUpdate(){
+        if(this.state.success){
+            this.props.history.push('/admin');
+        }
+    }
+
     render(){
         return(
             <div className="container form_container">
@@ -26,10 +45,19 @@ class Login extends Component {
                 <Formik
                     initialValues={{
                         email: 'paulzotoff@gmail.com',
-                        password: 'test'
+                        password: '123456'
                     }}
                     validationSchema = {LoginSchema}
-                    onSubmit={values => {console.log(values)}}
+                    onSubmit={values => {
+                        this.props.dispatch(loginUser(values))
+                        .then(response=>{
+                            if(!this.props.user.auth){
+                                this.setState({
+                                    validation: true
+                                })
+                            }
+                        })
+                    }}
                 >
                     {(
                         {
@@ -87,6 +115,15 @@ class Login extends Component {
                                     <button type="submit">Log in</button>
                                 </div>
                             </div>
+                            <div className="row">
+                                <div className="twelve columns">
+                                    {this.state.validation ? 
+                                    <div className="error_label">
+                                        Error, please try again
+                                    </div>
+                                    : null}
+                                </div>
+                            </div>
                         </form>
                     )}
                 </Formik>
@@ -95,4 +132,10 @@ class Login extends Component {
     }
 }
 
-export default Login;
+function mapStateToProps(state){
+    return {
+        user: state.user
+    }
+}
+
+export default connect(mapStateToProps)(Login);
