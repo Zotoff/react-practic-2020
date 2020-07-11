@@ -6,9 +6,14 @@ import AdminLayout from '../../../../hoc/adminLayout';
 import {BookSchema, FormElement} from './utils/helper';
 
 import {EditorState} from 'draft-js';
-import {StateToHTML} from 'draft-js-export-html';
+import {stateToHTML} from 'draft-js-export-html';
 import {Editor} from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+
+
+import {connect} from 'react-redux';
+import {addBook, clearBook} from '../../../../store/actions/book_actions';
+
 
 class addPosts extends Component {
     state={
@@ -19,8 +24,24 @@ class addPosts extends Component {
 
     onEditorStateChange = (editorState)=>{
         this.setState({
-            editorState: editorState
+            editorState: editorState,
+            editorContentHtml: stateToHTML(editorState.getCurrentContent())
         })
+    }
+
+    onPostBook = (values) => {
+        this.props.dispatch(addBook(values));
+    }
+
+    componentDidUpdate(prevProps){
+        const hasChanged = this.props.books !== prevProps.books;
+        if(hasChanged){
+            this.setState({success: true})
+        }
+    }
+
+    componentWillUnmount(){
+        this.props.dispatch(clearBook())
     }
     
     render(){
@@ -40,9 +61,11 @@ class addPosts extends Component {
                             
                         }
                         validationSchema={BookSchema}
-                        onSubmit = {((values)=>{
-                            console.log(values);
-                        })}
+                        onSubmit = {(values, {resetForm})=>{
+                            this.onPostBook({...values, content: this.state.editorContentHtml});
+                            this.setState({editorState: EditorState.createEmpty(), editorContentHtml: ''});
+                            resetForm({});
+                        }}
                     >
                         {({
                             values,
@@ -144,6 +167,15 @@ class addPosts extends Component {
                                     <option value="5">5</option>
                                 </FormElement>
                                 <button type="submit">Add book</button>
+                                <br />
+                                {
+                                    this.state.success ?
+                                        <div className="succes_entry">
+                                            <div>Congrats</div>
+                                            <Link to={`/article/${this.props.books.add.bookId}`} >See your book</Link>
+                                        </div>
+                                    :null
+                                }
                             </form>
                         )}
                     </Formik>
@@ -153,4 +185,10 @@ class addPosts extends Component {
     }
 }
 
-export default addPosts;
+function mapStateToProps(state) {
+    return {
+        books: state.books
+    }
+}
+
+export default connect(mapStateToProps)(addPosts);
