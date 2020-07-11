@@ -57,16 +57,19 @@ router.route('/book')
 });
 
 router.route('/all_books')
-.get((req, res)=>{
-    let skip = req.query.skip ? parseInt(req.query.skip) : 0;
-    let order = req.query.order ? req.query.order : 'asc';
-    let limit = req.query.limit ? parseInt(req.query.limit) : 10;
-    let byOwner = req.query.owner ? {ownerId: req.query.owner} : {};
+.get((req,res)=>{
+    // localhost:/api/books/all_books?skip=1&limit=2&order=asc&owner=jdsbfkhsfb
 
-    Book.find({byOwner}).skip(skip).sort({_id:order}).limit(limit).exec((err, doc)=>{
+    let skip = req.query.skip ? parseInt(req.query.skip) : 0;
+    let limit = req.query.limit ? parseInt(req.query.limit) : 2;
+    let order = req.query.order ? req.query.order : 'asc';
+    let byOwner = req.query.owner ? {ownerId: req.query.owner } : {}
+    
+    Book.find(byOwner).skip(skip).sort({_id:order}).limit(limit).exec((err,doc)=>{
         if(err) return res.status(400).send(err);
         res.send(doc)
-    })
+    });
+
 })
 
 module.exports = router;
