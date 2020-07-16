@@ -13,6 +13,7 @@
 /nodereact/node_modules
 /nodereact/client/node_modules
 /auth/node_modules
+/react-quiz/node_modules
 /bookshelf/node_modules
 /bookshelf/client/node_modules
 /.pnp
