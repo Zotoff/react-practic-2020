@@ -7,5 +7,11 @@
     transition: all .5s ease-in;
 }
 .AnswerItem:hover {
-    background: rgba(255, 255, 255, .2)
+    background: rgba(255, 255, 255, .2);
+}
+.AnswerItem.success {
+    background: rgba(161, 240, 9, .7);
+}
+.AnswerItem.error {
+    background: rgba(240, 87, 108, .7);
 }
