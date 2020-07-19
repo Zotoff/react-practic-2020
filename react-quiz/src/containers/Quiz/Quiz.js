@@ -34,6 +34,10 @@ export default class Quiz extends Component {
         title: 'Ответьте на вопросы'
     }
 
+    componentDidMount(){
+        console.log('Id ', this.props.match.params.id)
+    }
+
     onAnswerClickHandler = (answerId) => {
         if(this.state.answerState) {
             const key = Object.keys(this.state.answerState)[0];

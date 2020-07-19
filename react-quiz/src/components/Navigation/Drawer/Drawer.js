@@ -3,9 +3,32 @@ import classes from './Drawer.module.css';
 
 import Backdrop from '../../UI/Backdrop/Backdrop';
 
-const links = [1, 2, 3];
+import {NavLink} from 'react-router-dom';
+
+const links = [
+    {
+        to: '/',
+        label: 'Список квизов',
+        exact: true
+    },
+    {
+        to: '/auth',
+        label: 'Авторизация',
+        exact: false
+    },
+    {
+        to: '/quiz-creator',
+        label: 'Создание квиза',
+        exact: false
+    }
+];
 
 class Drawer extends Component {
+
+    handleClick = () => {
+        this.props.onClose();
+    }
+
     render(){
         const cls = [classes.Drawer];
         if(!this.props.isOpen) {
@@ -19,7 +42,14 @@ class Drawer extends Component {
                             links.map((link, index)=>{
                                 return (
                                     <li key={index}>
-                                        <a href="">{link}</a>
+                                        <NavLink 
+                                            to={link.to} 
+                                            exact={link.exact}
+                                            activeClassName={classes.active}
+                                            onClick={this.handleClick}
+                                        >
+                                            {link.label}
+                                        </NavLink>
                                     </li>
                                 )
                             })

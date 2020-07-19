@@ -1,5 +1,6 @@
 import React from 'react';
 import classes from "./FinishedQuiz.module.css";
+import {withRouter} from 'react-router-dom';
 
 import Button from '../UI/Button/Button';
 
@@ -37,6 +38,7 @@ const FinishedQuiz = props => {
                     >Повторить</Button>
                     <Button
                         type="success"
+                        onClick={()=>props.history.push('/')}
                     >Перейти в список тестов</Button>
                 </div>
             </ul>
@@ -44,4 +46,4 @@ const FinishedQuiz = props => {
     )
 }
 
-export default FinishedQuiz;
+export default withRouter(FinishedQuiz);
