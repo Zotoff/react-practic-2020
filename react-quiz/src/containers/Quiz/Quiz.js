@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import classes from './Quiz.module.css';
 import ActiveQuiz from '../../components/ActiveQuiz/ActiveQuiz';
 import FinishedQuiz from '../../components/FinishedQuiz/FinishedQuiz';
+import axios from '../../axios/axios-quiz';
 
 export default class Quiz extends Component {
     state = {
@@ -34,8 +35,12 @@ export default class Quiz extends Component {
         title: 'Ответьте на вопросы'
     }
 
-    componentDidMount(){
-        console.log('Id ', this.props.match.params.id)
+    async componentDidMount(){
+        try {
+            const response = await
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     onAnswerClickHandler = (answerId) => {
