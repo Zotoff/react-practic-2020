@@ -16,6 +16,9 @@
 /react-quiz/node_modules
 /bookshelf/node_modules
 /bookshelf/client/node_modules
+/vladilen_redux/node_modules
+/react-quiz/.idea
+/react-quiz/node_modules
 /.pnp
 .pnp.js
 
