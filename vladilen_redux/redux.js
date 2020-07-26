@@ -41,7 +41,7 @@ const addCounter = {
     type: 'ADD'
 }
 
-// Dispatch - метод, в котором передается сам action
+// Dispatch - метод, в котором передается сам action, передавая 
 store.dispatch(addCounter);
 // console.log('2', store.getState());
 
