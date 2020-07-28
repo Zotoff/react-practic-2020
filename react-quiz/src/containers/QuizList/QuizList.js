@@ -1,16 +1,17 @@
-import React, { Component } from 'react';
-import classes from './QuizList.module.css';
-import {NavLink} from 'react-router-dom';
-import Loader from '../../components/UI/Loader/Loader';
-import {fetchQuizes} from '../../store/actions/quiz';
-
-import {connect} from 'react-redux';
+import React, { Component } from 'react'
+import classes from './QuizList.module.css'
+import {NavLink} from 'react-router-dom'
+import Loader from '../../components/UI/Loader/Loader'
+import {connect} from 'react-redux'
+import {fetchQuizes} from '../../store/actions/quiz'
 
 class QuizList extends Component {
 
     renderQuizes() {
-        return this.props.quizes.map((quiz, index)=>(
-            <li key={quiz.id}>
+        return this.props.quizes.map((quiz, index) => (
+            <li
+                ey={quiz.id}
+            >
                 <NavLink to={'/quiz/' + quiz.id}>
                     {quiz.name}
                 </NavLink>
@@ -20,23 +21,6 @@ class QuizList extends Component {
 
     componentDidMount() {
         this.props.fetchQuizes()
-        // try {
-        //     const response = await axios.get('/quizes.json');
-        //     const quizes = [];
-        //     Object.keys(response.data).forEach((key, index) => {
-        //         quizes.push({
-        //             id: key,
-        //             name: `Тест № ${index + 1}`
-        //         })
-        //     });
-        //     this.setState({
-        //         quizes: quizes,
-        //         loading: false
-        //     });
-        // }
-        // catch (e) {
-        //     console.log(e)
-        // }
     }
 
     render() {
@@ -45,10 +29,9 @@ class QuizList extends Component {
                 <div>
                     <h1>Список квизов</h1>
                     {
-                        this.props.loading && this.props.quizes.length !== 0 ?
-                            <Loader />
-                        :
-                            <ul>
+                        this.props.loading && this.props.quizes.length !== 0
+                            ? <Loader />
+                        : <ul>
                                 {this.renderQuizes()}
                             </ul>
                     }
@@ -64,6 +47,7 @@ function mapStateToProps(state) {
         loading: state.quiz.loading
     }
 }
+
 function mapDispatchToProps(dispatch) {
     return {
         fetchQuizes: () => dispatch(fetchQuizes())
